@@ -23,7 +23,7 @@ You also need to add an `:overwatch:` emoji.
 ## Installation
 
 First, configure the bot with `config.js` file.  
-`dateFormats` array contains all different timezone you want to show. `offset` represent the difference between the targeted timezone and your local timezone.
+`dateFormats` array contains all different timezones you want to show. `offset` represent the difference between the targeted timezone and your local timezone.
 
 ### Run locally
 
