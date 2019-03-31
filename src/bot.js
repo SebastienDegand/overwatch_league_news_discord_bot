@@ -1,16 +1,17 @@
 const Discord = require("discord.js");
 const fetch = require("node-fetch");
 
+const config = require("../config")
 const utils = require("./utils.js")
 
 const client = new Discord.Client();
 
-const refreshInterval = 10000;
+const refreshInterval = config.refreshInterval;
 var channel;
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
-  channel = client.channels.find("name", "overwatch-league");
+  channel = client.channels.find("name", config.channelName);
 
   channel.send('Heroes never die !');
 
