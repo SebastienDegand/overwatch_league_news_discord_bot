@@ -66,21 +66,17 @@ client.on('message', msg => {
   if(msg.content === 'next match') {
     var now = new Date(Date.now())
     utils.nextMatchFrom(now).then((nextMatch) => {
-      var dateMatch = new Date(nextMatch.startDateTS);
       var emojiTeam1 = client.emojis.find(emoji => emoji.name === nextMatch.competitors[0].name.split(' ')[nextMatch.competitors[0].name.split(' ').length-1]);
       var emojiTeam2 = client.emojis.find(emoji => emoji.name === nextMatch.competitors[1].name.split(' ')[nextMatch.competitors[1].name.split(' ').length-1]);
 
-      var daysFr = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
-      var monthsFr = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
-      var daysEn = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-      var monthsEn = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
       var nextMatchMsg = "`Next Match :`\n"
       nextMatchMsg += emojiTeam1 + "`" + nextMatch.competitors[0].name + " vs " + nextMatch.competitors[1].name + "`" + emojiTeam2 + "\n";
-      nextMatchMsg += ":flag_fr:`" + daysFr[dateMatch.getDay()-1] + " " + dateMatch.getDate() + " " + monthsFr[dateMatch.getMonth()] + " " + dateMatch.getFullYear() + " " + String(dateMatch.getHours()).padStart(2, '0') + ":" + String(dateMatch.getMinutes()).padStart(2, '0') + ":" + String(dateMatch.getSeconds()).padStart(2, '0') + "`\n";
 
-      dateMatch.setHours(dateMatch.getHours() - 1);
-      nextMatchMsg += ":flag_gb:`" + daysEn[dateMatch.getDay()-1] + " " + dateMatch.getDate() + " " + monthsEn[dateMatch.getMonth()] + " " + dateMatch.getFullYear() + " " + String(dateMatch.getHours()).padStart(2, '0') + ":" + String(dateMatch.getMinutes()).padStart(2, '0') + ":" + String(dateMatch.getSeconds()).padStart(2, '0') + "`\n";
+      config.dateFormats.forEach((dateFormat) => {
+        var dateMatch = new Date(nextMatch.startDateTS);
+        dateMatch.setHours(dateMatch.getHours() + dateFormat.offset);
+        nextMatchMsg += dateFormat.emojiFlag + "`" + dateFormat.days[dateMatch.getDay()-1] + " " + dateMatch.getDate() + " " + dateFormat.months[dateMatch.getMonth()] + " " + dateMatch.getFullYear() + " " + String(dateMatch.getHours()).padStart(2, '0') + ":" + String(dateMatch.getMinutes()).padStart(2, '0') + ":" + String(dateMatch.getSeconds()).padStart(2, '0') + "`\n";
+      })
       nextMatchMsg += "==> <https://www.twitch.tv/overwatchleague_fr>\n"
       return nextMatchMsg;
     })
