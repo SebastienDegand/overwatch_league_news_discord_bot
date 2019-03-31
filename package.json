@@ -2,9 +2,9 @@
   "name": "overwatch_news_discord_bot",
   "version": "1.0.0",
   "description": "",
-  "main": "bot.js",
+  "main": "src/bot.js",
   "scripts": {
-    "start": "node bot.js"
+    "start": "node src/bot.js"
   },
   "author": "",
   "license": "ISC",
