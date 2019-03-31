@@ -5,16 +5,16 @@ The goal of this Discord bot is to post messages on your Discord channel about O
 ## Features
 
 - Type `ranking`: It shows the actual rank of teams with the number of matches won, lost and played.
-- Type `next match`: It shows the next match with teams name and date (French timezone).
+- Type `next match`: It shows the next match with team names and date (French timezone).
 - The bot post automatically a message when a match will start in 30 minutes.
-- the bot post automatically a message when a match is starting.
+- The bot post automatically a message when a match is starting.
 
 ## Requirements
 
-This project require Node.js  
+This project requires Node.js  
 https://nodejs.org/en/
 
-You also need to create an application and a bot on https://discordapp.com/developers
+You also need to create an application and a bot on https://discordapp.com/developers  
 Join the bot on your server
 
 ## Installation
