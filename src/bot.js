@@ -77,7 +77,7 @@ client.on('message', msg => {
         dateMatch.setHours(dateMatch.getHours() + dateFormat.offset);
         nextMatchMsg += dateFormat.emojiFlag + "`" + dateFormat.days[dateMatch.getDay()-1] + " " + dateMatch.getDate() + " " + dateFormat.months[dateMatch.getMonth()] + " " + dateMatch.getFullYear() + " " + String(dateMatch.getHours()).padStart(2, '0') + ":" + String(dateMatch.getMinutes()).padStart(2, '0') + ":" + String(dateMatch.getSeconds()).padStart(2, '0') + "`\n";
       })
-      nextMatchMsg += "==> <https://www.twitch.tv/overwatchleague_fr>\n"
+      nextMatchMsg += "==> <" + config.owlStreamLink + ">\n"
       return nextMatchMsg;
     })
     .then(nextMatchMsg => msg.channel.send(nextMatchMsg))
