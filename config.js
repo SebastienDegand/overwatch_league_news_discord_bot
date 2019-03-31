@@ -1,5 +1,5 @@
 const refreshInterval = 10000; // by default, bot will query overwatch league api each 10 sec
-const channelName = "overwatch-league"
+const channelName = "overwatch-league" // channel in which automatic messages will be sent
 
 const dateFormats = [
 	{
