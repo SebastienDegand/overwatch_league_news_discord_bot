@@ -17,7 +17,8 @@ https://nodejs.org/en/
 You also need to create an application and a bot on https://discordapp.com/developers  
 Join the bot on your server
 
-Emoji for each teams are used, so you need to add an emoji for each team on your server. Emoji name is the last word of the team name. For example the emoji name of team "Paris Eternal" is `:Eternal:`
+Emoji for each teams are used, so you need to add an emoji for each team on your server. Emoji name is the last word of the team name. For example the emoji name of team "Paris Eternal" is `:Eternal:`.
+You also need to add an `:overwatch:` emoji.
 
 ## Installation
 
