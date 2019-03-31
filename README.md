@@ -28,10 +28,10 @@ the bot token related to yout bot application is required.
 
 Solution 1:
 - setup the environnement variable `BOT_TOKEN` with your token
-- then start bot using: `node bot.js`
+- then start bot using: `npm start`
 
 Solution 2:
-- start bot using: `BOT_TOKEN=<your_token> node bot.js`
+- start bot using: `BOT_TOKEN=<your_token> npm start`
 
 ## Materials
 To do this bot I used:
