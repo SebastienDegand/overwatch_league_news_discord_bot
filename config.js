@@ -11,7 +11,7 @@ const dateFormats = [
 	},
 	{
 		name: "Gb",
-		offset: -1,
+		offset: -1, // difference of hours between targeted timezone and local timezone
 		emojiFlag: ":flag_gb:",
 		days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
 		months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
