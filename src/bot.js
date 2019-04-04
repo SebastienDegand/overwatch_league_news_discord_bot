@@ -9,6 +9,10 @@ const client = new Discord.Client();
 const refreshInterval = config.refreshInterval;
 var channel;
 
+client.on('error', err => {
+  console.error(err);
+});
+
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
   channel = client.channels.find("name", config.channelName);
