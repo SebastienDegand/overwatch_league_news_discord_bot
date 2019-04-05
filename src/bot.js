@@ -26,7 +26,7 @@ client.on('ready', () => {
       if(diffTime <= refreshInterval && diffTime > 0) {
         var emojiTeam1 = client.emojis.find(emoji => emoji.name === nextMatch.competitors[0].name.split(' ')[nextMatch.competitors[0].name.split(' ').length-1]);
         var emojiTeam2 = client.emojis.find(emoji => emoji.name === nextMatch.competitors[1].name.split(' ')[nextMatch.competitors[1].name.split(' ').length-1]);
-        var msg = "`The next match will start now !`\n";
+        var msg = "`The next match is starting now !`\n";
         msg += emojiTeam1 + "`" + nextMatch.competitors[0].name + " vs " + nextMatch.competitors[1].name + "`" + emojiTeam2 + "\n";
         msg += "==> <https://www.twitch.tv/overwatchleague_fr>\n";
         channel.send(msg);
@@ -36,7 +36,7 @@ client.on('ready', () => {
       if(diffTime <= refreshInterval && diffTime > 0) {
         var emojiTeam1 = client.emojis.find(emoji => emoji.name === nextMatch.competitors[0].name.split(' ')[nextMatch.competitors[0].name.split(' ').length-1]);
         var emojiTeam2 = client.emojis.find(emoji => emoji.name === nextMatch.competitors[1].name.split(' ')[nextMatch.competitors[1].name.split(' ').length-1]);
-        var msg = "`The next match will in 30 minutes !`\n";
+        var msg = "`The next match will start in 30 minutes !`\n";
         msg += emojiTeam1 + "`" + nextMatch.competitors[0].name + " vs " + nextMatch.competitors[1].name + "`" + emojiTeam2 + "\n";
         msg += "==> <https://www.twitch.tv/overwatchleague_fr>\n";
         channel.send(msg);
