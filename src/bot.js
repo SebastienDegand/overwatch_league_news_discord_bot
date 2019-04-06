@@ -62,7 +62,7 @@ client.on('message', msg => {
       config.dateFormats.forEach((dateFormat) => {
         var dateMatch = new Date(nextMatch.startDateTS);
         dateMatch.setHours(dateMatch.getHours() + dateFormat.offset);
-        nextMatchMsg += dateFormat.emojiFlag + "`" + dateFormat.days[dateMatch.getDay()-1] + " " + dateMatch.getDate() + " " + dateFormat.months[dateMatch.getMonth()] + " " + dateMatch.getFullYear() + " " + String(dateMatch.getHours()).padStart(2, '0') + ":" + String(dateMatch.getMinutes()).padStart(2, '0') + ":" + String(dateMatch.getSeconds()).padStart(2, '0') + "`\n";
+        nextMatchMsg += dateFormat.emojiFlag + "`" + dateFormat.days[dateMatch.getDay()] + " " + dateMatch.getDate() + " " + dateFormat.months[dateMatch.getMonth()] + " " + dateMatch.getFullYear() + " " + String(dateMatch.getHours()).padStart(2, '0') + ":" + String(dateMatch.getMinutes()).padStart(2, '0') + ":" + String(dateMatch.getSeconds()).padStart(2, '0') + "`\n";
       })
       nextMatchMsg += "==> <" + config.owlStreamLink + ">\n"
       return nextMatchMsg;

@@ -7,14 +7,14 @@ const dateFormats = [
 		name: "Fr",
 		offset: 0,
 		emojiFlag: ":flag_fr:",
-		days: ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"],
+		days: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
 		months: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"]
 	},
 	{
 		name: "Gb",
 		offset: -1, // difference of hours between targeted timezone and local timezone
 		emojiFlag: ":flag_gb:",
-		days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+		days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
 		months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 	}		
 	]
