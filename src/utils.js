@@ -20,12 +20,29 @@ function nextMatchFrom(date) {
 }
 
 function getRankedTeams() {
-  return fetch('https://api.overwatchleague.com/ranking')
+  return fetch('https://api.overwatchleague.com/v2/standings')
       .then(response => response.json())
-      .then(data => data.content)
+      .then(data => data.data)
+      .then((teams) => {
+        return teams.sort(function(team1,team2) {
+          return team1.league.placement - team2.league.placement;
+        })
+      });
+}
+
+function getRankedTeamsStage(stageNumber) {
+  return fetch('https://api.overwatchleague.com/v2/standings')
+      .then(response => response.json())
+      .then(data => data.data)
+      .then((teams) => {
+        return teams.sort(function(team1,team2) {
+          return team1.stages['stage' + stageNumber].placement - team2.stages['stage' + stageNumber].placement;
+        })
+      });
 }
 
 module.exports = {
 	nextMatchFrom,
-  getRankedTeams
+  getRankedTeams,
+  getRankedTeamsStage
 }

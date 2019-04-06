@@ -50,23 +50,6 @@ client.on('message', msg => {
     msg.channel.send('Pong!\nPong!\nPong!')
   }
 
-  if (msg.content === 'ranking') {
-  		utils.getRankedTeams().then(teams => {
-        var overwatchEmoji = client.emojis.find(emoji => emoji.name === "overwatch");
-  			var rankingMsg = "`.".padEnd(3) + ": `" + overwatchEmoji + '`|'.padEnd(32) + "|".padEnd(5) + "V P J` \n";
-
-  			teams.forEach((team) => {
-  				var teamName = team.competitor.name;
-  				var emoji = client.emojis.find(emoji => emoji.name === teamName.split(' ')[teamName.split(' ').length-1]);
-          var vdn = team.records[0].matchWin + " " + team.records[0].matchLoss + " " + (team.records[0].matchWin + team.records[0].matchLoss);
-
-  				rankingMsg += "`" + team.placement.toString().padEnd(2) + ": `" + emoji + "`|" + teamName.padEnd(25).padStart(30) + "|".padEnd(5) + vdn + "` \n"
-  			})
-  			return rankingMsg;
-  		})
-  		.then(ranking => msg.channel.send(ranking));
-  }
-
   if(msg.content === 'next match') {
     var now = new Date(Date.now())
     utils.nextMatchFrom(now).then((nextMatch) => {
@@ -86,6 +69,43 @@ client.on('message', msg => {
     })
     .then(nextMatchMsg => msg.channel.send(nextMatchMsg))
   }
+
+  if (msg.content === 'ranking') {
+      utils.getRankedTeams().then(teams => {
+        var overwatchEmoji = client.emojis.find(emoji => emoji.name === "overwatch");
+        var rankingMsg = "`.".padEnd(3) + ": `" + overwatchEmoji + '`|       === League ==='.padEnd(32) + "|".padEnd(5) + "V P J` \n";
+
+        teams.forEach((team) => {
+          var teamName = team.name;
+          var emoji = client.emojis.find(emoji => emoji.name === teamName.split(' ')[teamName.split(' ').length-1]);
+          var vdn = team.league.matchWin + " " + team.league.matchLoss + " " + (team.league.matchWin + team.league.matchLoss);
+
+          rankingMsg += "`" + team.league.placement.toString().padEnd(2) + ": `" + emoji + "`|" + teamName.padEnd(25).padStart(30) + "|".padEnd(5) + vdn + "` \n"
+        })
+        return rankingMsg;
+      })
+      .then(ranking => msg.channel.send(ranking));
+  }
+
+  if (msg.content.match(/^ranking stage \d+$/g)) {
+      var stageNumber = msg.content.split(' ')[2];
+      utils.getRankedTeamsStage(stageNumber).then(teams => {
+        var overwatchEmoji = client.emojis.find(emoji => emoji.name === "overwatch");
+        var rankingMsg = "`.".padEnd(3) + ": `" + overwatchEmoji + ('`|       === Stage ' + stageNumber + ' ===').padEnd(32) + "|".padEnd(5) + "V P J` \n";
+
+        teams.forEach((team) => {
+          var teamName = team.name;
+          var emoji = client.emojis.find(emoji => emoji.name === teamName.split(' ')[teamName.split(' ').length-1]);
+          var vdn = team.stages['stage' + stageNumber].matchWin + " " + team.stages['stage' + stageNumber].matchLoss + " " + (team.stages['stage' + stageNumber].matchWin + team.stages['stage' + stageNumber].matchLoss);
+
+          rankingMsg += "`" + team.stages['stage' + stageNumber].placement.toString().padEnd(2) + ": `" + emoji + "`|" + teamName.padEnd(25).padStart(30) + "|".padEnd(5) + vdn + "` \n"
+        })
+        return rankingMsg;
+      })
+      .then(ranking => msg.channel.send(ranking));
+  }
+
+
 });
 
 client.login(process.env.BOT_TOKEN);
