@@ -29,13 +29,15 @@ client.on('ready', () => {
     setInterval(function () {
         let now = new Date();
         let match = service.getNextMatch(now);
-        if(isBetween(match.date - now.getTime(), 0, config.refreshInterval)) {
-            LOGGER.info(`The match opposing ${match.competitors[0].name} and ${match.competitors[1].name} is starting now [date=${match.date}]`)
-            channel.send(`The match opposing ${match.competitors[0].name} and ${match.competitors[1].name} is starting now !`);
-        }
-        if(isBetween(match.date - 30*60*1000 - now.getTime(), 0, config.refreshInterval)) {
-            LOGGER.info(`The match opposing ${match.competitors[0].name} and ${match.competitors[1].name} starts in 30 minutes [date=${match.date}]`)
-            channel.send(`The match opposing ${match.competitors[0].name} and ${match.competitors[1].name} starts in 30 minutes !`)
+        if (match) {
+            if (isBetween(match.date - now.getTime(), 0, config.refreshInterval)) {
+                LOGGER.info(`The match opposing ${match.competitors[0].name} and ${match.competitors[1].name} is starting now [date=${match.date}]`)
+                channel.send(`The match opposing ${match.competitors[0].name} and ${match.competitors[1].name} is starting now !`);
+            }
+            if (isBetween(match.date - 30*60*1000 - now.getTime(), 0, config.refreshInterval)) {
+                LOGGER.info(`The match opposing ${match.competitors[0].name} and ${match.competitors[1].name} starts in 30 minutes [date=${match.date}]`)
+                channel.send(`The match opposing ${match.competitors[0].name} and ${match.competitors[1].name} starts in 30 minutes !`)
+            }
         }
     }, config.refreshInterval)
   
@@ -64,7 +66,11 @@ client.on('message', msg => {
     if (msg.content === constants.COMMAND_NEXT_MATCH) {
         LOGGER.info(`${msg}`);
         let match = service.getNextMatch(new Date());
-        msg.channel.send(`The next match will oppose ${match.competitors[0].name} and ${match.competitors[1].name} on ${new Date(match.date)}`);
+        if(match) {
+            msg.channel.send(`The next match will oppose ${match.competitors[0].name} and ${match.competitors[1].name} on ${new Date(match.date)}`);
+        } else {
+            msg.channel.send('No next match found');
+        }
     }
   
     if (msg.content.match(/^ranking stage \d+$/g)) {
