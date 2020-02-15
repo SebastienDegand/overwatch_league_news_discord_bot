@@ -1,5 +1,6 @@
-const refreshInterval = 300000; // by default, bot will query overwatch league api each 10 sec
-const channelName = "overwatch-league" // channel in which automatic messages will be sent
+const refreshIntervalFromServer = 300000; // by default, bot will fetch matches each 5 minutes
+const refreshInterval = 10000; // by default, bot will check the next match each 10 seconds
+const channelName = "test" // channel in which automatic messages will be sent
 const owlStreamLink = "https://www.twitch.tv/overwatchleague_fr"
 
 const dateFormats = [
@@ -20,6 +21,7 @@ const dateFormats = [
 	]
 
 module.exports = {
+	refreshIntervalFromServer,
 	refreshInterval,
 	channelName,
 	dateFormats,

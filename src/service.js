@@ -16,7 +16,7 @@ function startCachedMatchesUpdate() {
             updateCachedMatches().catch(error => {
                 LOGGER.errorStack('An error occured while getting matches', error.stack)
             })
-        }, config.refreshInterval);
+        }, config.refreshIntervalFromServer);
     }).catch(error => {
         LOGGER.errorStack('An error occured while getting matches', error.stack)
         process.exit(-1);
@@ -24,9 +24,8 @@ function startCachedMatchesUpdate() {
     });
 }
 
-function getNextMatch() {
-    let now = new Date();
-    matchesAfter = cachedMatches.filter(match => new Date(match.date) > now)
+function getNextMatch(date) {
+    matchesAfter = cachedMatches.filter(match => new Date(match.date) > date)
     return matchesAfter.reduce(function(match1, match2) { return match1.date < match2.date ? match1 : match2; });
 }
 
