@@ -25,7 +25,7 @@ function startCachedMatchesUpdate() {
 }
 
 function getNextMatch(date) {
-    matchesAfter = cachedMatches.filter(match => new Date(match.date) > date)
+    let matchesAfter = cachedMatches.filter(match => new Date(match.date) > date)
     return matchesAfter.reduce(function(match1, match2) { return match1.date < match2.date ? match1 : match2; });
 }
 
