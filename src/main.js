@@ -46,6 +46,7 @@ client.on('ready', () => {
 
 client.on('message', msg => {
     if (msg.content === constants.COMMAND_PREFIX || msg.content === constants.COMMAND_HELP) {
+        LOGGER.info(`${msg}`);
         msg.channel.send(`
         Commands available:
         /owl [command]
@@ -56,10 +57,12 @@ client.on('message', msg => {
     }
 
     if (msg.content === constants.COMMAND_PING) {
+        LOGGER.info(`${msg}`);
         msg.channel.send('Pong !')
     }
 
     if (msg.content === constants.COMMAND_NEXT_MATCH) {
+        LOGGER.info(`${msg}`);
         let match = service.getNextMatch(new Date());
         msg.channel.send(`The next match will oppose ${match.competitors[0].name} and ${match.competitors[1].name} on ${new Date(match.date)}`);
     }
