@@ -2,6 +2,7 @@ const LOGGER = require('./logger.js');
 const config = require('../config.js')
 const constants = require('./constants.js')
 const service = require('./service.js')
+const imageService = require('./imageService.js')
 const fs = require('fs');
 const Discord = require("discord.js");
 
@@ -25,6 +26,7 @@ client.on('error', err => {
 client.on('ready', () => {
     LOGGER.info(`Logged in as ${client.user.tag}`);
     let channel = client.channels.find("name", config.channelName);
+    LOGGER.info(`Use channel '${config.channelName}'`);
 
     setInterval(function () {
         let now = new Date();
@@ -32,11 +34,27 @@ client.on('ready', () => {
         if (match) {
             if (isBetween(match.date - now.getTime(), 0, config.refreshInterval)) {
                 LOGGER.info(`The match opposing ${match.competitors[0].name} and ${match.competitors[1].name} is starting now [date=${match.date}]`)
-                channel.send(`The match opposing ${match.competitors[0].name} and ${match.competitors[1].name} is starting now !`);
+                imageService.generateImage(match.competitors[0].logoUrl, match.competitors[1].logoUrl, match.competitors[0].name, match.competitors[1].name, 'The match is starting now !')
+                .then(buffer => {
+                    msg.channel.send({
+                        files: [{
+                            attachment: buffer,
+                            name: 'next-match.png'
+                        }]
+                    })
+                })
             }
             if (isBetween(match.date - 30*60*1000 - now.getTime(), 0, config.refreshInterval)) {
                 LOGGER.info(`The match opposing ${match.competitors[0].name} and ${match.competitors[1].name} starts in 30 minutes [date=${match.date}]`)
-                channel.send(`The match opposing ${match.competitors[0].name} and ${match.competitors[1].name} starts in 30 minutes !`)
+                imageService.generateImage(match.competitors[0].logoUrl, match.competitors[1].logoUrl, match.competitors[0].name, match.competitors[1].name, 'The match starts in 30 minutes !')
+                .then(buffer => {
+                    msg.channel.send({
+                        files: [{
+                            attachment: buffer,
+                            name: 'next-match.png'
+                        }]
+                    })
+                })
             }
         }
     }, config.refreshInterval)
@@ -67,7 +85,15 @@ client.on('message', msg => {
         LOGGER.info(`${msg}`);
         let match = service.getNextMatch(new Date());
         if(match) {
-            msg.channel.send(`The next match will oppose ${match.competitors[0].name} and ${match.competitors[1].name} on ${new Date(match.date)}`);
+            imageService.generateImage(match.competitors[0].logoUrl, match.competitors[1].logoUrl, match.competitors[0].name, match.competitors[1].name, new Date(match.date).toString())
+                .then(buffer => {
+                    msg.channel.send({
+                        files: [{
+                            attachment: buffer,
+                            name: 'next-match.png'
+                        }]
+                    })
+                })
         } else {
             msg.channel.send('No next match found');
         }
