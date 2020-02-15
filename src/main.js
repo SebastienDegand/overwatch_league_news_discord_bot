@@ -61,7 +61,7 @@ client.on('message', msg => {
 
     if (msg.content === constants.COMMAND_NEXT_MATCH) {
         let match = service.getNextMatch(new Date());
-        channel.send(`The match opposing ${match.competitors[0].name} and ${match.competitors[1].name} is starting now !`);
+        msg.channel.send(`The match opposing ${match.competitors[0].name} and ${match.competitors[1].name} is starting now !`);
     }
   
     if (msg.content.match(/^ranking stage \d+$/g)) {
