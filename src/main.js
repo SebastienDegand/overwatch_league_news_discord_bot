@@ -36,7 +36,7 @@ client.on('ready', () => {
                 LOGGER.info(`The match opposing ${match.competitors[0].name} and ${match.competitors[1].name} is starting now [date=${match.date}]`)
                 imageService.generateImage(match.competitors[0].logoUrl, match.competitors[1].logoUrl, match.competitors[0].name, match.competitors[1].name, 'The match is starting now !')
                 .then(buffer => {
-                    msg.channel.send({
+                    channel.send({
                         files: [{
                             attachment: buffer,
                             name: 'next-match.png'
@@ -48,7 +48,7 @@ client.on('ready', () => {
                 LOGGER.info(`The match opposing ${match.competitors[0].name} and ${match.competitors[1].name} starts in 30 minutes [date=${match.date}]`)
                 imageService.generateImage(match.competitors[0].logoUrl, match.competitors[1].logoUrl, match.competitors[0].name, match.competitors[1].name, 'The match starts in 30 minutes !')
                 .then(buffer => {
-                    msg.channel.send({
+                    channel.send({
                         files: [{
                             attachment: buffer,
                             name: 'next-match.png'
