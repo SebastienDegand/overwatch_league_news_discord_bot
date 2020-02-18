@@ -34,24 +34,24 @@ client.on('ready', () => {
         if (match) {
             if (isBetween(match.date - now.getTime(), 0, config.refreshInterval)) {
                 LOGGER.info(`The match opposing ${match.competitors[0].name} and ${match.competitors[1].name} is starting now [date=${match.date}]`)
-                imageService.generateImage(match.competitors[0].logoUrl, match.competitors[1].logoUrl, match.competitors[0].name, match.competitors[1].name, 'The match is starting now !')
+                imageService.generateImage(match, 'The match is starting now !')
                 .then(buffer => {
                     channel.send({
                         files: [{
                             attachment: buffer,
-                            name: 'next-match.png'
+                            name: `${match.competitors[0].name}-${match.competitors[1].name}.png`
                         }]
                     })
                 })
             }
             if (isBetween(match.date - 30*60*1000 - now.getTime(), 0, config.refreshInterval)) {
                 LOGGER.info(`The match opposing ${match.competitors[0].name} and ${match.competitors[1].name} starts in 30 minutes [date=${match.date}]`)
-                imageService.generateImage(match.competitors[0].logoUrl, match.competitors[1].logoUrl, match.competitors[0].name, match.competitors[1].name, 'The match starts in 30 minutes !')
+                imageService.generateImage(match, 'The match starts in 30 minutes !')
                 .then(buffer => {
                     channel.send({
                         files: [{
                             attachment: buffer,
-                            name: 'next-match.png'
+                            name: `${match.competitors[0].name}-${match.competitors[1].name}.png`
                         }]
                     })
                 })
@@ -85,7 +85,14 @@ client.on('message', msg => {
         LOGGER.info(`${msg}`);
         let match = service.getNextMatch(new Date());
         if(match) {
-            imageService.generateImage(match.competitors[0].logoUrl, match.competitors[1].logoUrl, match.competitors[0].name, match.competitors[1].name, new Date(match.date).toString())
+            let date = new Date(match.date)
+            let year = date.getFullYear();
+            let month = (date.getMonth() + 1).toString().padStart(2, '0');
+            let day = date.getDate().toString().padStart(2, '0');
+
+            let hour = date.getHours().toString().padStart(2, '0');
+            let minute = date.getMinutes().toString().padStart(2, '0');
+            imageService.generateImage(match, `On ${day}/${month}/${year} at ${hour}H${minute}`)
                 .then(buffer => {
                     msg.channel.send({
                         files: [{

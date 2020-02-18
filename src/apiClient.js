@@ -1,5 +1,6 @@
 const LOGGER = require('./logger.js');
 const fetch = require("node-fetch");
+const config = require('../config.js')
 
 const url = 'https://wzavfvwgfk.execute-api.us-east-2.amazonaws.com/production/owl/paginator/schedule';
 
@@ -32,11 +33,15 @@ function convertToLocalObject(match) {
         competitors: [
             {
                 name: match.competitors[0].name,
-                logoUrl: match.competitors[0].logo
+                logoUrl: config.teamsColors[match.competitors[0].name].logo,
+                backgroundColor: config.teamsColors[match.competitors[0].name] != undefined ? config.teamsColors[match.competitors[0].name].backgroundColor : "#FFFFFF",
+                textColor: config.teamsColors[match.competitors[0].name] != undefined ? config.teamsColors[match.competitors[0].name].textColor : "#FFFFFF"
             },
             {
                 name: match.competitors[1].name,
-                logoUrl: match.competitors[1].logo
+                logoUrl: config.teamsColors[match.competitors[1].name].logo,
+                backgroundColor: config.teamsColors[match.competitors[1].name] != undefined ? config.teamsColors[match.competitors[1].name].backgroundColor : "#FFFFFF",
+                textColor: config.teamsColors[match.competitors[1].name] != undefined ? config.teamsColors[match.competitors[1].name].textColor : "#FFFFFF"
             }
         ]
     }
