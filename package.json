@@ -11,6 +11,6 @@
   "dependencies": {
     "discord.js": "^11.4.2",
     "jimp": "^0.9.3",
-    "node-fetch": "^2.3.0"
+    "node-fetch": "^2.6.1"
   }
 }
